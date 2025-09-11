@@ -38,7 +38,7 @@ async function run() {
     });
     const reviewCollection = client.db("mrsDb").collection("review");
     app.get("/review", async (req, res) => {
-      const result = await menuCollection.find().toArray();
+      const result = await reviewCollection.find().toArray();
       res.send(result);
     });
 
