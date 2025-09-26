@@ -32,16 +32,22 @@ async function run() {
     await client.connect();
 
     const menuCollection = client.db("mrsDb").collection("menu");
+    const reviewCollection = client.db("mrsDb").collection("reviews");
+    const cartCollection = client.db("mrsDb").collection("carts");
     app.get("/menu", async (req, res) => {
       const result = await menuCollection.find().toArray();
       res.send(result);
     });
-    const reviewCollection = client.db("mrsDb").collection("reviews");
     app.get("/review", async (req, res) => {
       const result = await reviewCollection.find().toArray();
       res.send(result);
     });
-
+    // carts collection
+    app.post("/carts", async (req, res) => {
+      const cartItem = req.body;
+      const result = await cartCollection.insertOne(cartItem);
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
