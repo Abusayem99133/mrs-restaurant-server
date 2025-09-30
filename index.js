@@ -39,7 +39,9 @@ async function run() {
       res.send(result);
     });
     app.get("/review", async (req, res) => {
-      const result = await reviewCollection.find().toArray();
+      const email = req.query.email;
+      const query = { email: email };
+      const result = await reviewCollection.find(query).toArray();
       res.send(result);
     });
     // carts collection
